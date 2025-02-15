@@ -1,6 +1,30 @@
 import { useMemo, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+// import sphereFragmentShader from '../../shaders/fragment.glsl?raw'
+import sphereFragmentShader from '../../../shaders/fragment.glsl?raw'
+import sphereVertexShader from '../../../shaders/vertex.glsl?raw'
+import { shaderMaterial } from '@react-three/drei'
+import { extend, ReactThreeFiber, useFrame } from '@react-three/fiber';
+
+const SphereAnimatedMaterial = shaderMaterial(
+  {
+    uTime: 0,
+  },
+  sphereVertexShader,
+  sphereFragmentShader
+)
+
+extend({ SphereMaterial: SphereAnimatedMaterial });
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      sphereMaterial: ReactThreeFiber.Object3DNode<THREE.ShaderMaterial, typeof SphereAnimatedMaterial>;
+    }
+  }
+}
+
 
 interface Props {
   position: [number, number, number];
@@ -21,7 +45,8 @@ interface Props {
 }
 
 const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Props) => {
-  const shapeOneRef = useRef<THREE.Mesh>(null); 
+  const shapeOneRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.ShaderMaterial>(null!)
 
   const texture = useTexture(cushionMaterialProps.envMapImage);
 
@@ -31,20 +56,16 @@ const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Prop
     return texture;
   }, [texture]);
 
+  useFrame(({ clock }) => {
+    if (materialRef.current) {
+      materialRef.current.uniforms.uTime.value = clock.getElapsedTime()
+    }
+  })
+
   return (
     <mesh ref={shapeOneRef} position={position} rotation={rotation} scale={scale} renderOrder={1}>
       <sphereGeometry args={[size, 32, 32]} />
-      <meshStandardMaterial
-        envMap={envMap}
-        metalness={cushionMaterialProps.metalness}
-        roughness={cushionMaterialProps.roughness}
-        opacity={cushionMaterialProps.opacity}
-        envMapIntensity={cushionMaterialProps.envMapIntensity}
-        color={cushionMaterialProps.color}
-        emissive={cushionMaterialProps.emissive}
-        emissiveIntensity={cushionMaterialProps.emissiveIntensity}
-        transparent
-      />
+      <sphereMaterial ref={materialRef} attach="material" />
     </mesh>
   );
 };

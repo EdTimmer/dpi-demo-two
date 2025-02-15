@@ -419,7 +419,7 @@ function LogoOneGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
         textLightMaterialProps={textLightMaterialProps}
         sphereMaterialProps={sphereMaterialProps}
       />
-      <CushionCover size={0.92} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionCoverMaterialProps={cushionCoverMaterialProps} />
+      {/* <CushionCover size={0.92} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionCoverMaterialProps={cushionCoverMaterialProps} /> */}
       <Cushion size={0.9} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionMaterialProps={cushionMaterialProps} />
     </group>    
   );
