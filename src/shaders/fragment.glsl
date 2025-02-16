@@ -1,3 +1,5 @@
+precision mediump float;
+
 uniform float uTime;
 
 varying vec2 vUv;
@@ -48,7 +50,7 @@ void main() {
   // float strength = step(0.5, sin((cnoise(vUv * 10.0) + uTime * 0.1 )* 20.0));
 
   // smooth
-  float strength = sin((cnoise(vUv * 1.0) + uTime * 0.1 ) * 11.0);
+  float strength = sin((cnoise(vUv * 1.0) + uTime * 0.075 ) * 11.0);
 
   // clamp the strength
   strength = clamp(strength, 0.0, 1.0);

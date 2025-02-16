@@ -1,8 +1,8 @@
 import { useMemo, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
-// import sphereFragmentShader from '../../shaders/fragment.glsl?raw'
 import sphereFragmentShader from '../../../shaders/fragment.glsl?raw'
+// import sphereFragmentShader from '../../../shaders/fragment_two.glsl?raw'
 import sphereVertexShader from '../../../shaders/vertex.glsl?raw'
 import { shaderMaterial } from '@react-three/drei'
 import { extend, ReactThreeFiber, useFrame } from '@react-three/fiber';

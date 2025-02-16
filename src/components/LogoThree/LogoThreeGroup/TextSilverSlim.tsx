@@ -25,7 +25,7 @@ const TextSilverSlim = ({ position, rotation, text, size, depth, textMaterialPro
 
   useEffect(() => {
     const loader = new FontLoader();
-    loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
+    loader.load('/fonts/open_sans_semibold.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);

@@ -6,6 +6,7 @@ import { GUI } from 'lil-gui';
 import Cushion from './Cushion';
 import LogoTextBold from './LogoTextBold';
 import { listOfImages } from '../../../utilities/listOfImages';
+import CushionCover from './CushionCover';
 
 interface Props {
   isMouseEntered: boolean;
@@ -316,6 +317,7 @@ cushionControllersRef.current.envMapIntensityController = cushionFolder
   return (
     <group position={[0, 0, 0]} scale={[1.0, 1.0, 1.0]} ref={logoFourGroupRef}>
       <LogoTextBold text={'DP&I'} position={[0, 0, 0.3]} rotation={new THREE.Euler(0, 0, 0)} textBoldMaterialProps={textBoldMaterialProps} />
+      <CushionCover size={0.93} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionCoverMaterialProps={cushionCoverMaterialProps} />
       <Cushion size={0.9} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionMaterialProps={cushionMaterialProps} />
     </group>    
   );

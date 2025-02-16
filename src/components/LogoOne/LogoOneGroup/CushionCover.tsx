@@ -18,11 +18,17 @@ const CushionCover = ({ position, rotation, size, scale, cushionCoverMaterialPro
   return (
     <mesh ref={shapeOneRef} position={position} rotation={rotation} scale={scale} renderOrder={1}>
       <sphereGeometry args={[size, 32, 32]} />
-      <meshBasicMaterial 
+      {/* <meshBasicMaterial 
         color={cushionMaterialProps.color} 
         transparent 
         opacity={cushionMaterialProps.opacity} 
         side={THREE.BackSide} 
+      /> */}
+      <meshPhysicalMaterial
+        transmission={0.99}      // high transmission for translucency
+        transparent={true}      
+        roughness={0}         // adjust as needed for a smoother surface
+        envMapIntensity={0}     // no environment map reflections
       />
     </mesh>
   );

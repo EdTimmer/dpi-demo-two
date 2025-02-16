@@ -36,6 +36,7 @@ const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Prop
       <sphereGeometry args={[size, 32, 32]} />
       <meshStandardMaterial
         envMap={envMap} 
+        // map={texture}
         envMapIntensity={cushionMaterialProps.envMapIntensity}
         metalness={cushionMaterialProps.metalness}
         roughness={cushionMaterialProps.roughness}

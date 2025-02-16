@@ -39,6 +39,7 @@ const LogoOneWrapper = () => {
         <ambientLight intensity={1} />
         <LogoOneGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
         <directionalLight position={[-2, 5, 5]} intensity={1} />
+        <directionalLight position={[2, -5, 5]} intensity={1} />
         <OrbitControls enableDamping enableZoom={false} />
       </Canvas>
     </div>        

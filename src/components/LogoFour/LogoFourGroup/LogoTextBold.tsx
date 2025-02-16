@@ -23,7 +23,8 @@ const LogoTextBold = ({ position, rotation, text, textBoldMaterialProps }: Props
 
   useEffect(() => {
     const loader = new FontLoader();
-    loader.load('/fonts/mediator_narrow_web_extra_bold_regular.typeface.json', (loadedFont) => {
+    // loader.load('/fonts/mediator_narrow_web_extra_bold_regular.typeface.json', (loadedFont) => {
+      loader.load('/fonts/open_sans_regular.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);
@@ -34,7 +35,7 @@ const LogoTextBold = ({ position, rotation, text, textBoldMaterialProps }: Props
   
       const textOptions = {
         font,
-        size: 2.4,
+        size: 2.2,
         depth: 1.3,
         curveSegments: 12,
         bevelEnabled: false,
