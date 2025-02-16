@@ -7,6 +7,7 @@ import Cushion from './Cushion';
 import CushionCover from './CushionCover';
 import DeloitteDigitalLogoGroup from './DeloitteDigitalLogoGroup';
 import { listOfImages } from '../../../utilities/listOfImages';
+import Text from './Text';
 
 interface Props {
   isMouseEntered: boolean;
@@ -57,29 +58,41 @@ function LogoTwoGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
   const rotationFolderRef = useRef<GUI | null>(null);
   const rotationControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
 
-  // TEXT BOLD GUI REFS
-  const textBoldFolderRef = useRef<GUI | null>(null);
-  const textBoldControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
-  const [textBoldMaterialProps, setTextBoldMaterialProps] = useState({
-    color: '#fff',
-    metalness: 0,
-    roughness: 0,
-    opacity: 1.0,
-    emissive: '#fff',
-    emissiveIntensity: 0.12,
-  });
+  // // TEXT BOLD GUI REFS
+  // const textBoldFolderRef = useRef<GUI | null>(null);
+  // const textBoldControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
+  // const [textBoldMaterialProps, setTextBoldMaterialProps] = useState({
+  //   color: '#fff',
+  //   metalness: 0,
+  //   roughness: 0,
+  //   opacity: 1.0,
+  //   emissive: '#fff',
+  //   emissiveIntensity: 0.12,
+  // });
 
-  // TEXT LIGHT GUI REFS
-  const textLightFolderRef = useRef<GUI | null>(null);
-  const textLightControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
-  const [textLightMaterialProps, setTextLightMaterialProps] = useState({
-    color: '#fff',
-    metalness: 0,
-    roughness: 0,
-    opacity: 1.0,
-    emissive: '#fff',
-    emissiveIntensity: 0.12,
-  });
+  // // TEXT LIGHT GUI REFS
+  // const textLightFolderRef = useRef<GUI | null>(null);
+  // const textLightControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
+  // const [textLightMaterialProps, setTextLightMaterialProps] = useState({
+  //   color: '#fff',
+  //   metalness: 0,
+  //   roughness: 0,
+  //   opacity: 1.0,
+  //   emissive: '#fff',
+  //   emissiveIntensity: 0.12,
+  // });
+
+    // TEXT GUI REFS
+    const textFolderRef = useRef<GUI | null>(null);
+    const textControllersRef = useRef<Record<string, any>>({}); // Store the controllers in a ref
+    const [textMaterialProps, setTextMaterialProps] = useState({
+      color: '#fff',
+      opacity: 1.0,
+      roughness: 0.2,       
+      metalness: 0.2,
+      emissive: '#fff',
+      emissiveIntensity: 0.2,
+    });
 
   // SPHERE GUI REFS
   const sphereFolderRef = useRef<GUI | null>(null);
@@ -147,115 +160,172 @@ function LogoTwoGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
 
 
     // TEXT BOLD FOLDER
-    const textBoldFolder = guiTwo.addFolder('Text Bold');
-    textBoldFolderRef.current = textBoldFolder;
+    // const textBoldFolder = guiTwo.addFolder('Text Bold');
+    // textBoldFolderRef.current = textBoldFolder;
 
-    const localTextBoldProps = {
-      color: textBoldMaterialProps.color,
-      metalness: textBoldMaterialProps.metalness,
-      roughness: textBoldMaterialProps.roughness,
-      opacity: textBoldMaterialProps.opacity,
-      emissive: textBoldMaterialProps.emissive,
-      emissiveIntensity: textBoldMaterialProps.emissiveIntensity,
-    }
+    // const localTextBoldProps = {
+    //   color: textBoldMaterialProps.color,
+    //   metalness: textBoldMaterialProps.metalness,
+    //   roughness: textBoldMaterialProps.roughness,
+    //   opacity: textBoldMaterialProps.opacity,
+    //   emissive: textBoldMaterialProps.emissive,
+    //   emissiveIntensity: textBoldMaterialProps.emissiveIntensity,
+    // }
 
-    // add controls for each property
-    textBoldControllersRef.current.colorController = textBoldFolder
-      .addColor(localTextBoldProps, 'color')
-      .name('Color')
-      .onChange((color: string) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, color }));
-      });
+    // // add controls for each property
+    // textBoldControllersRef.current.colorController = textBoldFolder
+    //   .addColor(localTextBoldProps, 'color')
+    //   .name('Color')
+    //   .onChange((color: string) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, color }));
+    //   });
 
-    textBoldControllersRef.current.metalnessController = textBoldFolder
-      .add(localTextBoldProps, 'metalness', 0, 1, 0.01)
-      .name('Metalness')
-      .onChange((metalness: number) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, metalness }));
-      });
+    // textBoldControllersRef.current.metalnessController = textBoldFolder
+    //   .add(localTextBoldProps, 'metalness', 0, 1, 0.01)
+    //   .name('Metalness')
+    //   .onChange((metalness: number) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, metalness }));
+    //   });
 
-    textBoldControllersRef.current.roughnessController = textBoldFolder
-      .add(localTextBoldProps, 'roughness', 0, 1, 0.01)
-      .name('Roughness')
-      .onChange((roughness: number) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, roughness }));
-      });
+    // textBoldControllersRef.current.roughnessController = textBoldFolder
+    //   .add(localTextBoldProps, 'roughness', 0, 1, 0.01)
+    //   .name('Roughness')
+    //   .onChange((roughness: number) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, roughness }));
+    //   });
 
-    textBoldControllersRef.current.opacityController = textBoldFolder
-      .add(localTextBoldProps, 'opacity', 0, 1, 0.01)
-      .name('Opacity')
-      .onChange((opacity: number) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, opacity }));
-      });
+    // textBoldControllersRef.current.opacityController = textBoldFolder
+    //   .add(localTextBoldProps, 'opacity', 0, 1, 0.01)
+    //   .name('Opacity')
+    //   .onChange((opacity: number) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, opacity }));
+    //   });
     
-    textBoldControllersRef.current.emissiveController = textBoldFolder
-      .addColor(localTextBoldProps, 'emissive')
-      .name('Emissive')
-      .onChange((emissive: string) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, emissive }));
-      });
+    // textBoldControllersRef.current.emissiveController = textBoldFolder
+    //   .addColor(localTextBoldProps, 'emissive')
+    //   .name('Emissive')
+    //   .onChange((emissive: string) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, emissive }));
+    //   });
 
-    textBoldControllersRef.current.emissiveIntensityController = textBoldFolder
-      .add(localTextBoldProps, 'emissiveIntensity', 0, 1, 0.01)
-      .name('Emissive Intensity')
-      .onChange((emissiveIntensity: number) => {
-        setTextBoldMaterialProps((prev) => ({ ...prev, emissiveIntensity })); 
-      });
+    // textBoldControllersRef.current.emissiveIntensityController = textBoldFolder
+    //   .add(localTextBoldProps, 'emissiveIntensity', 0, 1, 0.01)
+    //   .name('Emissive Intensity')
+    //   .onChange((emissiveIntensity: number) => {
+    //     setTextBoldMaterialProps((prev) => ({ ...prev, emissiveIntensity })); 
+    //   });
 
     // TEXT LIGHT FOLDER
-    const textLightFolder = guiTwo.addFolder('Text Light');
-    textLightFolderRef.current = textLightFolder;
+    // const textLightFolder = guiTwo.addFolder('Text Light');
+    // textLightFolderRef.current = textLightFolder;
 
-    const localTextLightProps = {
-      color: textLightMaterialProps.color,
-      metalness: textLightMaterialProps.metalness,
-      roughness: textLightMaterialProps.roughness,
-      opacity: textLightMaterialProps.opacity,
-      emissive: textLightMaterialProps.emissive,
-      emissiveIntensity: textLightMaterialProps.emissiveIntensity,
+    // const localTextLightProps = {
+    //   color: textLightMaterialProps.color,
+    //   metalness: textLightMaterialProps.metalness,
+    //   roughness: textLightMaterialProps.roughness,
+    //   opacity: textLightMaterialProps.opacity,
+    //   emissive: textLightMaterialProps.emissive,
+    //   emissiveIntensity: textLightMaterialProps.emissiveIntensity,
+    // }
+
+    // // add controls for each property
+    // textLightControllersRef.current.colorController = textLightFolder
+    //   .addColor(localTextLightProps, 'color')
+    //   .name('Color')
+    //   .onChange((color: string) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, color }));
+    //   });
+
+    // textLightControllersRef.current.metalnessController = textLightFolder
+    //   .add(localTextLightProps, 'metalness', 0, 1, 0.01)
+    //   .name('Metalness')
+    //   .onChange((metalness: number) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, metalness }));
+    //   });
+
+    // textLightControllersRef.current.roughnessController = textLightFolder
+    //   .add(localTextLightProps, 'roughness', 0, 1, 0.01)
+    //   .name('Roughness')
+    //   .onChange((roughness: number) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, roughness }));
+    //   });
+
+    // textLightControllersRef.current.opacityController = textLightFolder
+    //   .add(localTextLightProps, 'opacity', 0, 1, 0.01)
+    //   .name('Opacity')
+    //   .onChange((opacity: number) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, opacity }));
+    //   });
+    
+    // textLightControllersRef.current.emissiveController = textLightFolder
+    //   .addColor(localTextLightProps, 'emissive')
+    //   .name('Emissive')
+    //   .onChange((emissive: string) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, emissive }));
+    //   }); 
+
+    // textLightControllersRef.current.emissiveIntensityController = textLightFolder
+    //   .add(localTextLightProps, 'emissiveIntensity', 0, 1, 0.01)
+    //   .name('Emissive Intensity')
+    //   .onChange((emissiveIntensity: number) => {
+    //     setTextLightMaterialProps((prev) => ({ ...prev, emissiveIntensity }));
+    //   });
+
+    // TEXT FOLDER
+    const textFolder = guiTwo.addFolder('Text');
+    textFolderRef.current = textFolder;
+    // textFolderRef.current.open();
+
+    const localTextProps = {
+      color: textMaterialProps.color,
+      opacity: textMaterialProps.opacity,
+      roughness: textMaterialProps.roughness,
+      metalness: textMaterialProps.metalness,
+      emissive: textMaterialProps.emissive,
+      emissiveIntensity: textMaterialProps.emissiveIntensity,
     }
 
     // add controls for each property
-    textLightControllersRef.current.colorController = textLightFolder
-      .addColor(localTextLightProps, 'color')
+    textControllersRef.current.colorController = textFolder
+      .addColor(localTextProps, 'color')
       .name('Color')
-      .onChange((color: string) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, color }));
+      .onChange((value: string) => {
+        setTextMaterialProps(prev => ({ ...prev, color: value }));
       });
 
-    textLightControllersRef.current.metalnessController = textLightFolder
-      .add(localTextLightProps, 'metalness', 0, 1, 0.01)
-      .name('Metalness')
-      .onChange((metalness: number) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, metalness }));
-      });
-
-    textLightControllersRef.current.roughnessController = textLightFolder
-      .add(localTextLightProps, 'roughness', 0, 1, 0.01)
-      .name('Roughness')
-      .onChange((roughness: number) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, roughness }));
-      });
-
-    textLightControllersRef.current.opacityController = textLightFolder
-      .add(localTextLightProps, 'opacity', 0, 1, 0.01)
+    textControllersRef.current.opacityController = textFolder
+      .add(localTextProps, 'opacity', 0, 1, 0.01)
       .name('Opacity')
-      .onChange((opacity: number) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, opacity }));
+      .onChange((value: number) => {
+        setTextMaterialProps(prev => ({ ...prev, opacity: value }));
       });
-    
-    textLightControllersRef.current.emissiveController = textLightFolder
-      .addColor(localTextLightProps, 'emissive')
-      .name('Emissive')
-      .onChange((emissive: string) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, emissive }));
-      }); 
 
-    textLightControllersRef.current.emissiveIntensityController = textLightFolder
-      .add(localTextLightProps, 'emissiveIntensity', 0, 1, 0.01)
+    textControllersRef.current.roughnessController = textFolder
+      .add(localTextProps, 'roughness', 0, 1, 0.01)
+      .name('Roughness')
+      .onChange((value: number) => {
+        setTextMaterialProps(prev => ({ ...prev, roughness: value }));
+      });
+
+    textControllersRef.current.metalnessController = textFolder
+      .add(localTextProps, 'metalness', 0, 1, 0.01)
+      .name('Metalness')
+      .onChange((value: number) => {
+        setTextMaterialProps(prev => ({ ...prev, metalness: value }));
+      });
+
+    textControllersRef.current.emissiveController = textFolder
+      .addColor(localTextProps, 'emissive')
+      .name('Emissive')
+      .onChange((value: string) => {
+        setTextMaterialProps(prev => ({ ...prev, emissive: value }));
+      });
+
+    textControllersRef.current.emissiveIntensityController = textFolder
+      .add(localTextProps, 'emissiveIntensity', 0, 1, 0.01)
       .name('Emissive Intensity')
-      .onChange((emissiveIntensity: number) => {
-        setTextLightMaterialProps((prev) => ({ ...prev, emissiveIntensity }));
+      .onChange((value: number) => {
+        setTextMaterialProps(prev => ({ ...prev, emissiveIntensity: value }));
       });
     
 
@@ -421,11 +491,12 @@ function LogoTwoGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
 
   return (
     <group position={[0, 0, 0]} scale={[1.0, 1.0, 1.0]} ref={logoTwoGroupRef}>
-      <DeloitteDigitalLogoGroup
+      {/* <DeloitteDigitalLogoGroup
         textBoldMaterialProps={textBoldMaterialProps}
         textLightMaterialProps={textLightMaterialProps}
         sphereMaterialProps={sphereMaterialProps}
-      />
+      /> */}
+      <Text text={'DP&I'} position={[0, 0, 0.3]} rotation={new THREE.Euler(0, 0, 0)} size={0.8} depth={0.5} textMaterialProps={textMaterialProps} />
       <CushionCover size={0.93} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionCoverMaterialProps={cushionCoverMaterialProps} />
       <Cushion size={0.9} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionMaterialProps={cushionMaterialProps} />
     </group>    

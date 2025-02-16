@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { useTexture } from '@react-three/drei';
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
@@ -11,31 +10,22 @@ interface Props {
   size: number;
   depth: number;
   textMaterialProps: {
-    envMapIntensity: number;
     color: string;
     metalness: number;
     roughness: number;
+    reflectivity: number;
+    clearcoat: number;
+    clearcoatRoughness: number;
     opacity: number;
-    emissive: string;
-    emissiveIntensity: number;
-  }
+  };
 }
 
-const Text = ({ position, rotation, text, size, depth, textMaterialProps }: Props) => {
-  const meshRef = useRef<THREE.Mesh>(null!);
+const TextSilverSlim = ({ position, rotation, text, size, depth, textMaterialProps }: Props) => {
   const [font, setFont] = useState<Font | null>(null);
-
-  const texture = useTexture('/images/silver_7.jpg');
-
-  const envMap = useMemo(() => {
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    texture.needsUpdate = true;
-    return texture;
-  }, [texture]);
 
   useEffect(() => {
     const loader = new FontLoader();
-    loader.load('/fonts/mediator_narrow_web_extra_bold_regular.typeface.json', (loadedFont) => {
+    loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);
@@ -51,8 +41,8 @@ const Text = ({ position, rotation, text, size, depth, textMaterialProps }: Prop
         curveSegments: 12,
         bevelEnabled: false,
         bevelThickness: 0.1,
-        bevelSize: 0.05,
-        bevelOffset: 0,
+        bevelSize: 0.1,
+        bevelOffset: 0.0,
         bevelSegments: 5,
       };
   
@@ -68,20 +58,19 @@ const Text = ({ position, rotation, text, size, depth, textMaterialProps }: Prop
     if (!font || !textGeometry) return null;
 
   return (
-    <mesh ref={meshRef} geometry={textGeometry} rotation={rotation} position={position} renderOrder={2}>
-      <meshStandardMaterial 
+    <mesh geometry={textGeometry} rotation={rotation} position={position} renderOrder={3}>
+     <meshPhysicalMaterial
+        color={textMaterialProps.color}
         metalness={textMaterialProps.metalness}
         roughness={textMaterialProps.roughness}
-        color={textMaterialProps.color}
-        envMap={envMap}
-        envMapIntensity={textMaterialProps.envMapIntensity}
+        reflectivity={textMaterialProps.reflectivity}  // Reflectivity of the material
+        clearcoat={textMaterialProps.clearcoat}     // Adds a clear coat layer
+        clearcoatRoughness={textMaterialProps.clearcoatRoughness}  // Polished surface
         opacity={textMaterialProps.opacity}
-        emissive={textMaterialProps.emissive}
-        emissiveIntensity={textMaterialProps.emissiveIntensity}
         transparent
       />
     </mesh>
   );
 };
 
-export default Text;
+export default TextSilverSlim;

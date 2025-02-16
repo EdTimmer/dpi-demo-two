@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Props) => {
-  const shapeOneRef = useRef<THREE.Mesh>(null); 
+  const shapeOneRef = useRef<THREE.Mesh>(null);
 
   const texture = useTexture(cushionMaterialProps.envMapImage);
   
@@ -32,17 +32,8 @@ const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Prop
     }, [texture]);
 
   return (
-    <mesh ref={shapeOneRef} position={position} rotation={rotation} scale={scale} renderOrder={1}>
+    <mesh ref={shapeOneRef} layers={0} position={position} rotation={rotation} scale={scale} renderOrder={1}>
       <sphereGeometry args={[size, 32, 32]} />
-      {/* <meshPhongMaterial
-        color={cushionMaterialProps.color}
-        emissive={cushionMaterialProps.emissive}
-        specular={cushionMaterialProps.specular}
-        shininess={cushionMaterialProps.shininess}
-        opacity={cushionMaterialProps.opacity}
-        emissiveIntensity={cushionMaterialProps.emissiveIntensity}
-        transparent
-      /> */}
       <meshStandardMaterial
         envMap={envMap} 
         envMapIntensity={cushionMaterialProps.envMapIntensity}
@@ -53,7 +44,6 @@ const Cushion = ({ position, rotation, size, scale, cushionMaterialProps }: Prop
         emissive={cushionMaterialProps.emissive}
         emissiveIntensity={cushionMaterialProps.emissiveIntensity}
         transparent
-        // wireframe={true}
       />
     </mesh>
   );
