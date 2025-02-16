@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import * as THREE from 'three';
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
@@ -7,9 +7,7 @@ interface Props {
   position: [number, number, number];
   rotation: THREE.Euler;
   text: string;
-  size: number;
-  depth: number;
-  textMaterialProps: {
+  textBoldMaterialProps: {
     color: string;
     metalness: number;
     roughness: number;
@@ -17,15 +15,16 @@ interface Props {
     clearcoat: number;
     clearcoatRoughness: number;
     opacity: number;
-  };
+  }
 }
 
-const TextSilverSlim = ({ position, rotation, text, size, depth, textMaterialProps }: Props) => {
+const Text = ({ position, rotation, text, textBoldMaterialProps }: Props) => {
+  const meshRef = useRef<THREE.Mesh>(null!);
   const [font, setFont] = useState<Font | null>(null);
 
   useEffect(() => {
     const loader = new FontLoader();
-    loader.load('/fonts/open_sans_semibold.typeface.json', (loadedFont) => {
+    loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);
@@ -36,8 +35,8 @@ const TextSilverSlim = ({ position, rotation, text, size, depth, textMaterialPro
   
       const textOptions = {
         font,
-        size,
-        depth,
+        size: 0.8,
+        depth: 0.3,
         curveSegments: 12,
         bevelEnabled: false,
         bevelThickness: 0.1,
@@ -58,19 +57,28 @@ const TextSilverSlim = ({ position, rotation, text, size, depth, textMaterialPro
     if (!font || !textGeometry) return null;
 
   return (
-    <mesh geometry={textGeometry} rotation={rotation} position={position} renderOrder={3}>
-     <meshPhysicalMaterial
-        color={textMaterialProps.color}
+    <mesh ref={meshRef} geometry={textGeometry} rotation={rotation} position={position} renderOrder={2}>
+      {/* <meshStandardMaterial 
         metalness={textMaterialProps.metalness}
         roughness={textMaterialProps.roughness}
-        reflectivity={textMaterialProps.reflectivity}  // Reflectivity of the material
-        clearcoat={textMaterialProps.clearcoat}     // Adds a clear coat layer
-        clearcoatRoughness={textMaterialProps.clearcoatRoughness}  // Polished surface
+        color={textMaterialProps.color}
         opacity={textMaterialProps.opacity}
+        transparent
+        emissive={textMaterialProps.emissive}
+        emissiveIntensity={textMaterialProps.emissiveIntensity}
+      /> */}
+      <meshPhysicalMaterial
+        color={textBoldMaterialProps.color}
+        metalness={textBoldMaterialProps.metalness}
+        roughness={textBoldMaterialProps.roughness}
+        reflectivity={textBoldMaterialProps.reflectivity}  // Reflectivity of the material
+        clearcoat={textBoldMaterialProps.clearcoat}     // Adds a clear coat layer
+        clearcoatRoughness={textBoldMaterialProps.clearcoatRoughness}  // Polished surface
+        opacity={textBoldMaterialProps.opacity}
         transparent
       />
     </mesh>
   );
 };
 
-export default TextSilverSlim;
+export default Text;

@@ -7,24 +7,22 @@ interface Props {
   position: [number, number, number];
   rotation: THREE.Euler;
   text: string;
-  textBoldMaterialProps: {
+  textLightMaterialProps: {
     color: string;
     metalness: number;
     roughness: number;
-    reflectivity: number;
-    clearcoat: number;
-    clearcoatRoughness: number;
     opacity: number;
-  };
+    emissive: string;
+    emissiveIntensity: number;
+  },
 }
 
-const LogoTextBold = ({ position, rotation, text, textBoldMaterialProps }: Props) => {
+const LogoTextLight = ({ position, rotation, text, textLightMaterialProps }: Props) => {
   const [font, setFont] = useState<Font | null>(null);
 
   useEffect(() => {
     const loader = new FontLoader();
-    // loader.load('/fonts/mediator_narrow_web_extra_bold_regular.typeface.json', (loadedFont) => {
-      loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
+    loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);
@@ -35,8 +33,8 @@ const LogoTextBold = ({ position, rotation, text, textBoldMaterialProps }: Props
   
       const textOptions = {
         font,
-        size: 2.3,
-        depth: 1.3,
+        size: 1.3,
+        depth: 0.8,
         curveSegments: 12,
         bevelEnabled: false,
         bevelThickness: 0.1,
@@ -57,19 +55,18 @@ const LogoTextBold = ({ position, rotation, text, textBoldMaterialProps }: Props
     if (!font || !textGeometry) return null;
 
   return (
-    <mesh geometry={textGeometry} rotation={rotation} position={position} scale={[0.33, 0.33, 0.33]} renderOrder={3}>
-     <meshPhysicalMaterial
-        color={textBoldMaterialProps.color}
-        metalness={textBoldMaterialProps.metalness}
-        roughness={textBoldMaterialProps.roughness}
-        reflectivity={textBoldMaterialProps.reflectivity}  // Reflectivity of the material
-        clearcoat={textBoldMaterialProps.clearcoat}     // Adds a clear coat layer
-        clearcoatRoughness={textBoldMaterialProps.clearcoatRoughness}  // Polished surface
-        opacity={textBoldMaterialProps.opacity}
+    <mesh geometry={textGeometry} rotation={rotation} position={position} renderOrder={3}>
+      <meshStandardMaterial 
+        metalness={textLightMaterialProps.metalness}
+        roughness={textLightMaterialProps.roughness}
+        color={textLightMaterialProps.color}
+        opacity={textLightMaterialProps.opacity}
+        emissive={textLightMaterialProps.emissive}
+        emissiveIntensity={textLightMaterialProps.emissiveIntensity}
         transparent
       />
     </mesh>
   );
 };
 
-export default LogoTextBold;
+export default LogoTextLight;

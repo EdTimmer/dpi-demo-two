@@ -40,6 +40,7 @@ const LogoFourWrapper = () => {
         <LogoFourGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
         <directionalLight ref={topLightRefTwo} position={[0, 2, 10]} intensity={0.1} />
         <directionalLight ref={bottomLightRef} position={[0, -2, 10]} intensity={0.1} />        
+        {/* <directionalLight ref={bottomLightRef} position={[0, 0, 10]} intensity={0.1} /> */}
         <OrbitControls enableDamping enableZoom={false} />
       </Canvas>
     </div>        

@@ -7,6 +7,7 @@ import Cushion from './Cushion';
 import LogoTextBold from './LogoTextBold';
 import { listOfImages } from '../../../utilities/listOfImages';
 import CushionCover from './CushionCover';
+import { Sparkles } from '@react-three/drei';
 
 interface Props {
   isMouseEntered: boolean;
@@ -319,6 +320,7 @@ cushionControllersRef.current.envMapIntensityController = cushionFolder
       <LogoTextBold text={'DP&I'} position={[0, 0, 0.3]} rotation={new THREE.Euler(0, 0, 0)} textBoldMaterialProps={textBoldMaterialProps} />
       <CushionCover size={0.93} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionCoverMaterialProps={cushionCoverMaterialProps} />
       <Cushion size={0.9} scale={[1.7, 1.7, 0.4]} position={[0, 0, 0]} rotation={new THREE.Euler(0, 0, 0)} cushionMaterialProps={cushionMaterialProps} />
+      <Sparkles count={20} scale={3} size={10} speed={0.4} />
     </group>    
   );
 }

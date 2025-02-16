@@ -4,7 +4,7 @@ import {
   CenterSectionWrapper,
   Row,
 } from './App.styles'
-import LogoThreeWrapper from './components/LogoThree/LogoThreeWrapper';
+
 import LogoSixWrapper from './components/LogoSix/LogoSixWrapper';
 import LogoOneWrapper from './components/LogoOne/LogoOneWrapper';
 import LogoFourWrapper from './components/LogoFour/LogoFourWrapper';
@@ -13,6 +13,7 @@ import LogoTwoWrapper from './components/LogoTwo/LogoTwoWrapper';
 import LogoFiveWrapper from './components/LogoFive/LogoFiveWrapper';
 import LogoSevenWrapper from './components/LogoSeven/LogoSevenWrapper';
 import LogoEightWrapper from './components/LogoEight/LogoEightWrapper';
+import LogoThreeWrapper from './components/LogoThree/LogoThreeWrapper';
 
 function App() {
   return (
