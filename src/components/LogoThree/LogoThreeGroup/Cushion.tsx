@@ -1,7 +1,5 @@
-import { useMemo, useRef } from 'react';
-import { useTexture } from '@react-three/drei';
+import { useRef } from 'react';
 import * as THREE from 'three';
-// import sphereFragmentShader from '../../../shaders/fragment.glsl?raw'
 import sphereFragmentShader from '../../../shaders/two/fragment_two.glsl?raw'
 import sphereVertexShader from '../../../shaders/two/vertex_two.glsl?raw'
 import { shaderMaterial } from '@react-three/drei'
