@@ -6,22 +6,18 @@ interface Props {
   rotation: THREE.Euler;
   size: number;
   scale: [number, number, number];
-  cushionCoverMaterialProps: {
-    color: string;
-    opacity: number;
-  },
 }
 
-const CushionCover = ({ position, rotation, size, scale, cushionCoverMaterialProps: cushionMaterialProps }: Props) => {
+const CushionCover = ({ position, rotation, size, scale }: Props) => {
   const shapeOneRef = useRef<THREE.Mesh>(null); 
 
   return (
     <mesh ref={shapeOneRef} position={position} rotation={rotation} scale={scale} renderOrder={1}>
       <sphereGeometry args={[size, 32, 32]} />
       {/* <meshBasicMaterial 
-        color={cushionMaterialProps.color} 
+        color='#fff' 
         transparent 
-        opacity={cushionMaterialProps.opacity} 
+        opacity={0.3} 
         side={THREE.BackSide} 
       /> */}
       <meshPhysicalMaterial

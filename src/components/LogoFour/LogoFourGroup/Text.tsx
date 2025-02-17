@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
@@ -7,18 +7,24 @@ interface Props {
   position: [number, number, number];
   rotation: THREE.Euler;
   text: string;
-  size: number;
-  depth: number;
-  color: string;
+  textMaterialProps: {
+    color: string;
+    metalness: number;
+    roughness: number;
+    reflectivity: number;
+    clearcoat: number;
+    clearcoatRoughness: number;
+    opacity: number;
+  };
 }
 
-const Text = ({ position, rotation, text, size, depth, color }: Props) => {
-  const meshRef = useRef<THREE.Mesh>(null!);
+const Text = ({ position, rotation, text, textMaterialProps }: Props) => {
   const [font, setFont] = useState<Font | null>(null);
 
   useEffect(() => {
     const loader = new FontLoader();
-    loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
+    // loader.load('/fonts/mediator_narrow_web_extra_bold_regular.typeface.json', (loadedFont) => {
+      loader.load('/fonts/open_sans_light_regular.typeface.json', (loadedFont) => {
       setFont(loadedFont);
     });
   }, []);
@@ -29,13 +35,13 @@ const Text = ({ position, rotation, text, size, depth, color }: Props) => {
   
       const textOptions = {
         font,
-        size,
-        depth,
+        size: 0.8,
+        depth: 0.5,
         curveSegments: 12,
         bevelEnabled: false,
-        bevelThickness: 0.05,
-        bevelSize: 0.3,
-        bevelOffset: 0.0,
+        bevelThickness: 0.1,
+        bevelSize: 0.1,
+        bevelOffset: 0,
         bevelSegments: 5,
       };
   
@@ -51,8 +57,17 @@ const Text = ({ position, rotation, text, size, depth, color }: Props) => {
     if (!font || !textGeometry) return null;
 
   return (
-    <mesh ref={meshRef} geometry={textGeometry} rotation={rotation} position={position}>
-      <meshStandardMaterial metalness={1.0} roughness={0.5} color={color} />
+    <mesh geometry={textGeometry} rotation={rotation} position={position} renderOrder={3}>
+     <meshPhysicalMaterial
+        color={textMaterialProps.color}
+        metalness={textMaterialProps.metalness}
+        roughness={textMaterialProps.roughness}
+        reflectivity={textMaterialProps.reflectivity}  // Reflectivity of the material
+        clearcoat={textMaterialProps.clearcoat}     // Adds a clear coat layer
+        clearcoatRoughness={textMaterialProps.clearcoatRoughness}  // Polished surface
+        opacity={textMaterialProps.opacity}
+        transparent
+      />
     </mesh>
   );
 };

@@ -4,7 +4,11 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useEffect, useRef, useState } from 'react';
 import LogoThreeGroup from './LogoThreeGroup';
 
-const LogoThreeWrapper = () => {
+interface Props {
+  guiy: string;
+}
+
+const LogoThreeWrapper = ({guiy}: Props) => {
   const [isFacingUser, setIsFacingUser] = useState(true);
 
   const [isMouseEntered, setIsMouseEntered] = useState(false);
@@ -37,11 +41,15 @@ const LogoThreeWrapper = () => {
       <Canvas gl={{ antialias: true }}>
         <PerspectiveCamera makeDefault fov={20} position={[0, 0, 20]} />
         <ambientLight intensity={1} />
-        <LogoThreeGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
+        <LogoThreeGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} guiy={guiy} />
         {/* <directionalLight position={[-2, 5, 5]} intensity={1} />
         <directionalLight position={[2, -5, 5]} intensity={1} /> */}
         <directionalLight ref={topLightRefTwo} position={[0, 2, 10]} intensity={0.1} />
         <directionalLight ref={bottomLightRef} position={[0, -2, 10]} intensity={0.1} />  
+        <directionalLight position={[2, 3, 3]} intensity={1} />
+        <directionalLight position={[-2, -3, 3]} intensity={1} />
+        <directionalLight position={[-2, 3, 3]} intensity={1} />
+        <directionalLight position={[2, -3, 3]} intensity={1} />
         <OrbitControls enableDamping enableZoom={false} />
       </Canvas>
     </div>        

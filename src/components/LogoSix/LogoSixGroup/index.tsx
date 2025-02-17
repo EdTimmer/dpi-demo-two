@@ -10,9 +10,10 @@ interface Props {
   isMouseEntered: boolean;
   isFacingUser: boolean;
   setIsFacingUser: (isFacingUser: boolean) => void;
+  guiy: string;
 }
 
-function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) {
+function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser, guiy }: Props) {
   const logoSixGroupRef = useRef<Group>(null);
 
   // Set the initial rotation on mount only
@@ -72,8 +73,8 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
   const [cushionMaterialProps, setCushionMaterialProps] = useState({
     color: '#000',
     opacity: 1,
-    roughness: 0.4,     
-    metalness: 0,
+    roughness: 0.15,     
+    metalness: 0.65,
     emissive: '#fff',
     emissiveIntensity: 0,
   });
@@ -86,7 +87,7 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
     // Position the GUI
     guiSix.domElement.style.position = 'absolute';
     guiSix.domElement.style.right = '10px';
-    guiSix.domElement.style.top = '1450px';
+    guiSix.domElement.style.top = guiy;
 
     // ROTATION FOLDER
     const rotationFolder = guiSix.addFolder('Rotation');
@@ -126,11 +127,11 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
         setTextMaterialProps(prev => ({ ...prev, color: value }));
       });
 
-    textControllersRef.current.opacityController = textFolder
-      .add(localTextProps, 'opacity', 0, 1, 0.01)
-      .name('Opacity')
+    textControllersRef.current.metalnessController = textFolder
+      .add(localTextProps, 'metalness', 0, 1, 0.01)
+      .name('Metalness')
       .onChange((value: number) => {
-        setTextMaterialProps(prev => ({ ...prev, opacity: value }));
+        setTextMaterialProps(prev => ({ ...prev, metalness: value }));
       });
 
     textControllersRef.current.roughnessController = textFolder
@@ -138,13 +139,6 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
       .name('Roughness')
       .onChange((value: number) => {
         setTextMaterialProps(prev => ({ ...prev, roughness: value }));
-      });
-
-    textControllersRef.current.metalnessController = textFolder
-      .add(localTextProps, 'metalness', 0, 1, 0.01)
-      .name('Metalness')
-      .onChange((value: number) => {
-        setTextMaterialProps(prev => ({ ...prev, metalness: value }));
       });
 
     textControllersRef.current.emissiveController = textFolder
@@ -159,6 +153,13 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
       .name('Emissive Intensity')
       .onChange((value: number) => {
         setTextMaterialProps(prev => ({ ...prev, emissiveIntensity: value }));
+      });
+
+    textControllersRef.current.opacityController = textFolder
+      .add(localTextProps, 'opacity', 0, 1, 0.01)
+      .name('Opacity')
+      .onChange((value: number) => {
+        setTextMaterialProps(prev => ({ ...prev, opacity: value }));
       });
 
     // CUSHION FOLDER
@@ -183,11 +184,11 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
         setCushionMaterialProps(prev => ({ ...prev, color: value }));
       });
 
-    cushionControllersRef.current.opacityController = cushionFolder
-      .add(localCushionProps, 'opacity', 0, 1, 0.01)
-      .name('Opacity')
+    cushionControllersRef.current.metalnessController = cushionFolder
+      .add(localCushionProps, 'metalness', 0, 1, 0.01)
+      .name('Metalness')
       .onChange((value: number) => {
-        setCushionMaterialProps(prev => ({ ...prev, opacity: value }));
+        setCushionMaterialProps(prev => ({ ...prev, metalness: value }));
       });
 
     cushionControllersRef.current.roughnessController = cushionFolder
@@ -196,14 +197,7 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
       .onChange((value: number) => {
         setCushionMaterialProps(prev => ({ ...prev, roughness: value }));
       });
-
-    cushionControllersRef.current.metalnessController = cushionFolder
-      .add(localCushionProps, 'metalness', 0, 1, 0.01)
-      .name('Metalness')
-      .onChange((value: number) => {
-        setCushionMaterialProps(prev => ({ ...prev, metalness: value }));
-      });
-
+      
     cushionControllersRef.current.emissiveController = cushionFolder
       .addColor(localCushionProps, 'emissive')
       .name('Emissive')
@@ -218,6 +212,13 @@ function LogoSixGroup({ isMouseEntered, isFacingUser, setIsFacingUser }: Props) 
         setCushionMaterialProps(prev => ({ ...prev, emissiveIntensity: value }));
       });
 
+    cushionControllersRef.current.opacityController = cushionFolder
+      .add(localCushionProps, 'opacity', 0, 1, 0.01)
+      .name('Opacity')
+      .onChange((value: number) => {
+        setCushionMaterialProps(prev => ({ ...prev, opacity: value }));
+      });
+    
     return () => {
       guiSix.destroy();
     };

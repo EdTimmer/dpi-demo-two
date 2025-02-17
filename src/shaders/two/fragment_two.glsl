@@ -1,6 +1,12 @@
 precision mediump float;
 
 uniform float uTime;
+uniform int uNoiseSwirlSteps;
+uniform float uNoiseSwirlValue;
+
+uniform float uNoiseScale; // 2.0
+uniform float uNoiseTimeScale;
+uniform float uOpacity;
 
 varying vec2 vUv;
 varying vec2 vUv0;
@@ -8,11 +14,9 @@ varying vec2 vUv0;
 // uniform vec2 iResolution;
 // uniform float uTime;
 
-const int noiseSwirlSteps = 2;
-const float noiseSwirlValue = 1.0;
-const float noiseSwirlStepValue = noiseSwirlValue / float(noiseSwirlSteps);
-const float noiseScale = 1.0; // 2.0
-const float noiseTimeScale = 0.05;
+// float noiseSwirlStepValue = uNoiseSwirlValue / float(uNoiseSwirlSteps);
+
+
 
 // Simplex noise helper functions
 
@@ -116,8 +120,11 @@ float fbm5(vec3 v) {
 }
 
 float getNoise(vec3 v) {
+  // Compute the swirl step value at runtime.
+    float noiseSwirlStepValue = uNoiseSwirlValue / float(uNoiseSwirlSteps);
+
     // Add swirl/curl to the noise
-    for (int i = 0; i < noiseSwirlSteps; i++) {
+    for (int i = 0; i < uNoiseSwirlSteps; i++) {
         v.xy += vec2(fbm3(v), fbm3(vec3(v.xy, v.z + 1000.0))) * noiseSwirlStepValue;
     }
     // Normalize to [0, 1]
@@ -130,9 +137,9 @@ void main() {
 //   vec2 vUv = fragCoord
 
   // Use uTime instead of iTime for the time-based component
-  float noise = getNoise(vec3(vUv * noiseScale, uTime * noiseTimeScale));
+  float noise = getNoise(vec3(vUv * uNoiseScale, uTime * uNoiseTimeScale));
   // Enhance contrast (noise raised to the fourth power, then scaled)
   noise = pow(noise, 4.0) * 2.0;
   
-  gl_FragColor = vec4(noise, noise, noise, 0.3);
+  gl_FragColor = vec4(noise, noise, noise, uOpacity);
 }

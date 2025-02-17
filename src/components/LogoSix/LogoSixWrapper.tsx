@@ -4,7 +4,11 @@ import { useState } from 'react';
 
 import LogoSixGroup from './LogoSixGroup';
 
-const LogoSixWrapper = () => {
+interface Props {
+  guiy: string;
+}
+
+const LogoSixWrapper = ({guiy}: Props) => {
   const [isFacingUser, setIsFacingUser] = useState(true);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
@@ -24,7 +28,7 @@ const LogoSixWrapper = () => {
       <Canvas gl={{ antialias: true }}>
         <PerspectiveCamera makeDefault fov={20} position={[0, 0, 20]} />
         <ambientLight intensity={0.5} />
-        <LogoSixGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
+        <LogoSixGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} guiy={guiy} />
         <directionalLight position={[0, 5, 5]} />
         <directionalLight position={[-5, -5, 5]} />
         <directionalLight position={[5, -5, 5]} />

@@ -4,7 +4,11 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useEffect, useRef, useState } from 'react';
 import LogoFiveGroup from './LogoFiveGroup';
 
-const LogoFiveWrapper = () => {
+interface Props {
+  guiy: string;
+}
+
+const LogoFiveWrapper = ({guiy}: Props) => {
   const [isFacingUser, setIsFacingUser] = useState(true);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
@@ -36,7 +40,7 @@ const LogoFiveWrapper = () => {
       <Canvas gl={{ antialias: true }}>
         <PerspectiveCamera makeDefault fov={20} position={[0, 0, 20]} />
         <ambientLight intensity={1} />
-        <LogoFiveGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
+        <LogoFiveGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} guiy={guiy} />
         {/* <directionalLight position={[2, 5, 5]} intensity={1} /> */}
         <directionalLight position={[-2, 5, 5]} intensity={1} />
         <OrbitControls enableDamping enableZoom={false} />

@@ -7,7 +7,7 @@ export const AppWrapper = styled.div`
   font-family: 'Roboto Mono', monospace;
   padding: 0 370px;
   width: 100%;
-  height: 3580px;
+  height: 1800px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

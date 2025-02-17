@@ -4,7 +4,11 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useEffect, useRef, useState } from 'react';
 import LogoTwoGroup from './LogoTwoGroup';
 
-const LogoTwoWrapper = () => {
+interface Props {
+  guiy: string;
+}
+
+const LogoTwoWrapper = ({guiy}: Props) => {
   const [isFacingUser, setIsFacingUser] = useState(true);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
@@ -36,7 +40,7 @@ const LogoTwoWrapper = () => {
       <Canvas gl={{ antialias: true }}>
         <PerspectiveCamera makeDefault fov={20} position={[0, 0, 20]} />
         <ambientLight intensity={1} />
-        <LogoTwoGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} />
+        <LogoTwoGroup isMouseEntered={isMouseEntered} isFacingUser={isFacingUser} setIsFacingUser={setIsFacingUser} guiy={guiy} />
         <directionalLight position={[0, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, 5]} intensity={1} />
         <directionalLight position={[5, -5, 5]} intensity={1} />

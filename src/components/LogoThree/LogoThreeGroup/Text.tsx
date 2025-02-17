@@ -7,7 +7,7 @@ interface Props {
   position: [number, number, number];
   rotation: THREE.Euler;
   text: string;
-  textBoldMaterialProps: {
+  textMaterialProps: {
     color: string;
     metalness: number;
     roughness: number;
@@ -18,7 +18,7 @@ interface Props {
   }
 }
 
-const Text = ({ position, rotation, text, textBoldMaterialProps }: Props) => {
+const Text = ({ position, rotation, text, textMaterialProps }: Props) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [font, setFont] = useState<Font | null>(null);
 
@@ -68,13 +68,13 @@ const Text = ({ position, rotation, text, textBoldMaterialProps }: Props) => {
         emissiveIntensity={textMaterialProps.emissiveIntensity}
       /> */}
       <meshPhysicalMaterial
-        color={textBoldMaterialProps.color}
-        metalness={textBoldMaterialProps.metalness}
-        roughness={textBoldMaterialProps.roughness}
-        reflectivity={textBoldMaterialProps.reflectivity}  // Reflectivity of the material
-        clearcoat={textBoldMaterialProps.clearcoat}     // Adds a clear coat layer
-        clearcoatRoughness={textBoldMaterialProps.clearcoatRoughness}  // Polished surface
-        opacity={textBoldMaterialProps.opacity}
+        color={textMaterialProps.color}
+        metalness={textMaterialProps.metalness}
+        roughness={textMaterialProps.roughness}
+        reflectivity={textMaterialProps.reflectivity}  // Reflectivity of the material
+        clearcoat={textMaterialProps.clearcoat}     // Adds a clear coat layer
+        clearcoatRoughness={textMaterialProps.clearcoatRoughness}  // Polished surface
+        opacity={textMaterialProps.opacity}
         transparent
       />
     </mesh>
