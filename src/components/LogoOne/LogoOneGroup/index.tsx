@@ -86,7 +86,7 @@ function LogoOneGroup({ isMouseEntered, isFacingUser, setIsFacingUser, guiy }: P
     roughness: 0,
     envMapImages: listOfImages,
     envMapImage: '/images/img_4.png',
-    envMapIntensity: 0.4,
+    envMapIntensity: 1.0,
   });
 
   useEffect(() => {
