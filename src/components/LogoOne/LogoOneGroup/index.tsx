@@ -82,7 +82,7 @@ function LogoOneGroup({ isMouseEntered, isFacingUser, setIsFacingUser, guiy }: P
   const cushionCoverRef = useRef<GUI | null>(null);
   const cushionCoverControllersRef = useRef<Record<string, any>>({});
   const [cushionCoverMaterialProps, setCushionCoverMaterialProps] = useState({
-    transmission: 0.99,
+    transmission: 1.0,
     roughness: 0,
     envMapImages: listOfImages,
     envMapImage: '/images/img_4.png',
